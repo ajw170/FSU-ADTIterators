@@ -65,14 +65,6 @@ namespace fsu
         size_t NumNodes () const { return RNumNodes(root_); } // counts nodes
         int    Height   () const { return RHeight(root_); }
         
-        template <class F>
-        void   Traverse(F f) const { RTraverse(root_,f); }
-        
-        void   Display (std::ostream& os, int kw, int dw,     // key, data widths
-                        std::ios_base::fmtflags kf = std::ios_base::right, // key flag
-                        std::ios_base::fmtflags df = std::ios_base::right // data flag
-        ) const;
-        
         void   DumpBW (std::ostream& os) const;
         void   Dump (std::ostream& os) const;
         void   Dump (std::ostream& os, int kw) const;
@@ -145,46 +137,6 @@ namespace fsu
             
         };
         
-        class PrintNode
-        {
-        public:
-            PrintNode (std::ostream& os, int kw, int dw,
-                       std::ios_base::fmtflags kf, std::ios_base::fmtflags df )
-            : os_(os), kw_(kw), dw_(dw), kf_(kf), df_(df) {}
-            void operator() (const Node * n) const
-            {
-                if (n->IsAlive())
-                {
-                    os_.setf(kf_,std::ios_base::adjustfield);
-                    os_ << std::setw(kw_) << n->value_.key_;
-                    os_.setf(df_,std::ios_base::adjustfield);
-                    os_ << std::setw(dw_) << n->value_.data_;
-                    os_ << '\n';
-                }
-            }
-        private:
-            std::ostream& os_;
-            int kw_, dw_;      // key and data column widths
-            std::ios_base::fmtflags kf_, df_; // column adjustment flags for output
-            //stream
-        };
-        
-        class CopyNode
-        {
-        public:
-            CopyNode (Node*& newroot, Map_ADT<K,D>* Map_ADT) : newroot_(newroot), oldtree_(Map_ADT) {}
-            void operator() (const Node * n) const
-            {
-                if (n->IsAlive())
-                {
-                    newroot_ = oldtree_->RInsert(newroot_,n->value_.key_, n->value_.data_);
-                    newroot_->SetBlack();
-                }
-            }
-        private:
-            Node *&    newroot_;
-            Map_ADT<K,D> * oldtree_;
-        };
         
     private: // data
         Node *         root_;
@@ -202,8 +154,10 @@ namespace fsu
         static Node * RotateLeft  (Node * n);
         static Node * RotateRight (Node * n);
         
+        /* Potential removal ***
         template < class F >
         static void   RTraverse (Node * n, F f);
+         */
         
         // recursive left-leaning get
         Node * RGet(Node* nptr, const K& kval, Node*& location);
@@ -267,14 +221,6 @@ namespace fsu
         Traverse(cn);
         Clear();
         root_ = newRoot;
-    }
-    
-    //3//
-    template < typename K , typename D , class P >
-    void  Map_ADT<K,D,P>::Display (std::ostream& os, int kw, int dw, std::ios_base::fmtflags kf, std::ios_base::fmtflags df) const
-    {
-        PrintNode pn(os, kw, dw, kf, df);  //create print node object
-        Traverse(pn); //traverse using PrintNode function object
     }
     
     //4//
@@ -458,6 +404,7 @@ namespace fsu
         return 1 + lh;
     }
     
+    /* Potential Removal******
     template < typename K , typename D , class P >
     template < class F >
     void Map_ADT<K,D,P>::RTraverse (Node * n, F f)
@@ -467,6 +414,7 @@ namespace fsu
         f(n);
         RTraverse(n->rchild_,f);
     }
+    */
     
     template < typename K , typename D , class P >
     void Map_ADT<K,D,P>::RRelease(Node* n)

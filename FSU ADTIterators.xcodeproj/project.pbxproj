@@ -38,6 +38,12 @@
 		980551DA1E779CEB001CF326 /* pair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pair.h; sourceTree = "<group>"; };
 		98BEA09C1E786CCD00C9DD95 /* xstring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xstring.cpp; sourceTree = "<group>"; };
 		98BEA09D1E786CCD00C9DD95 /* xstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xstring.h; sourceTree = "<group>"; };
+		98BEA09F1E788C1E00C9DD95 /* fmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fmap.cpp; sourceTree = "<group>"; };
+		98BEA0A01E788C1E00C9DD95 /* main_ws3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main_ws3.cpp; sourceTree = "<group>"; };
+		98BEA0A11E788C1E00C9DD95 /* map_tools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map_tools.cpp; sourceTree = "<group>"; };
+		98BEA0A21E788C1E00C9DD95 /* mapiter_adt.start */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mapiter_adt.start; sourceTree = "<group>"; };
+		98BEA0A31E788C1E00C9DD95 /* mmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mmap.cpp; sourceTree = "<group>"; };
+		98BEA0A41E788C1E00C9DD95 /* rantable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rantable.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +82,12 @@
 		980551C21E7792B8001CF326 /* FSU ADTIterators */ = {
 			isa = PBXGroup;
 			children = (
+				98BEA09F1E788C1E00C9DD95 /* fmap.cpp */,
+				98BEA0A01E788C1E00C9DD95 /* main_ws3.cpp */,
+				98BEA0A11E788C1E00C9DD95 /* map_tools.cpp */,
+				98BEA0A21E788C1E00C9DD95 /* mapiter_adt.start */,
+				98BEA0A31E788C1E00C9DD95 /* mmap.cpp */,
+				98BEA0A41E788C1E00C9DD95 /* rantable.cpp */,
 			);
 			path = "FSU ADTIterators";
 			sourceTree = "<group>";
