@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		980551C41E7792B8001CF326 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 980551C31E7792B8001CF326 /* main.cpp */; };
+		980551D01E779A8A001CF326 /* foaa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 980551CB1E779A8A001CF326 /* foaa.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,8 +23,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		980551C01E7792B8001CF326 /* FSU ADTIterators */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "FSU ADTIterators"; sourceTree = BUILT_PRODUCTS_DIR; };
-		980551C31E7792B8001CF326 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		980551C01E7792B8001CF326 /* MAP FOAA */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "MAP FOAA"; sourceTree = BUILT_PRODUCTS_DIR; };
+		980551CA1E779A8A001CF326 /* cleanup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cleanup.cpp; sourceTree = "<group>"; };
+		980551CB1E779A8A001CF326 /* foaa.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = foaa.cpp; sourceTree = "<group>"; };
+		980551CC1E779A8A001CF326 /* map_adt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = map_adt.h; sourceTree = "<group>"; };
+		980551CD1E779A8A001CF326 /* wordsmith3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wordsmith3.cpp; sourceTree = "<group>"; };
+		980551CE1E779A8A001CF326 /* wordsmith3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wordsmith3.h; sourceTree = "<group>"; };
+		980551D31E779B9E001CF326 /* entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = entry.h; sourceTree = "<group>"; };
+		980551D41E779BB4001CF326 /* compare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = compare.h; sourceTree = "<group>"; };
+		980551D51E779C69001CF326 /* queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = queue.h; sourceTree = "<group>"; };
+		980551D61E779C90001CF326 /* ansicodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ansicodes.h; sourceTree = "<group>"; };
+		980551D71E779C90001CF326 /* deque.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deque.h; sourceTree = "<group>"; };
+		980551D81E779CA8001CF326 /* deque.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = deque.cpp; sourceTree = "<group>"; };
+		980551DA1E779CEB001CF326 /* pair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pair.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +52,12 @@
 		980551B71E7792B8001CF326 = {
 			isa = PBXGroup;
 			children = (
+				980551D21E779B72001CF326 /* Support Files */,
+				980551CA1E779A8A001CF326 /* cleanup.cpp */,
+				980551CB1E779A8A001CF326 /* foaa.cpp */,
+				980551CC1E779A8A001CF326 /* map_adt.h */,
+				980551CD1E779A8A001CF326 /* wordsmith3.cpp */,
+				980551CE1E779A8A001CF326 /* wordsmith3.h */,
 				980551C21E7792B8001CF326 /* FSU ADTIterators */,
 				980551C11E7792B8001CF326 /* Products */,
 			);
@@ -49,7 +66,7 @@
 		980551C11E7792B8001CF326 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				980551C01E7792B8001CF326 /* FSU ADTIterators */,
+				980551C01E7792B8001CF326 /* MAP FOAA */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -57,17 +74,30 @@
 		980551C21E7792B8001CF326 /* FSU ADTIterators */ = {
 			isa = PBXGroup;
 			children = (
-				980551C31E7792B8001CF326 /* main.cpp */,
 			);
 			path = "FSU ADTIterators";
+			sourceTree = "<group>";
+		};
+		980551D21E779B72001CF326 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				980551DA1E779CEB001CF326 /* pair.h */,
+				980551D81E779CA8001CF326 /* deque.cpp */,
+				980551D61E779C90001CF326 /* ansicodes.h */,
+				980551D71E779C90001CF326 /* deque.h */,
+				980551D51E779C69001CF326 /* queue.h */,
+				980551D41E779BB4001CF326 /* compare.h */,
+				980551D31E779B9E001CF326 /* entry.h */,
+			);
+			name = "Support Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		980551BF1E7792B8001CF326 /* FSU ADTIterators */ = {
+		980551BF1E7792B8001CF326 /* MAP FOAA */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 980551C71E7792B8001CF326 /* Build configuration list for PBXNativeTarget "FSU ADTIterators" */;
+			buildConfigurationList = 980551C71E7792B8001CF326 /* Build configuration list for PBXNativeTarget "MAP FOAA" */;
 			buildPhases = (
 				980551BC1E7792B8001CF326 /* Sources */,
 				980551BD1E7792B8001CF326 /* Frameworks */,
@@ -77,9 +107,9 @@
 			);
 			dependencies = (
 			);
-			name = "FSU ADTIterators";
+			name = "MAP FOAA";
 			productName = "FSU ADTIterators";
-			productReference = 980551C01E7792B8001CF326 /* FSU ADTIterators */;
+			productReference = 980551C01E7792B8001CF326 /* MAP FOAA */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -109,7 +139,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				980551BF1E7792B8001CF326 /* FSU ADTIterators */,
+				980551BF1E7792B8001CF326 /* MAP FOAA */,
 			);
 		};
 /* End PBXProject section */
@@ -119,7 +149,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				980551C41E7792B8001CF326 /* main.cpp in Sources */,
+				980551D01E779A8A001CF326 /* foaa.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +246,10 @@
 		980551C81E7792B8001CF326 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				OTHER_CPLUSPLUSFLAGS = (
+					"-I$(PROJECT_DIR)",
+					"-I$(PROJECT_DIR)/*",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -223,6 +257,10 @@
 		980551C91E7792B8001CF326 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				OTHER_CPLUSPLUSFLAGS = (
+					"-I$(PROJECT_DIR)",
+					"-I$(PROJECT_DIR)/*",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -239,7 +277,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		980551C71E7792B8001CF326 /* Build configuration list for PBXNativeTarget "FSU ADTIterators" */ = {
+		980551C71E7792B8001CF326 /* Build configuration list for PBXNativeTarget "MAP FOAA" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				980551C81E7792B8001CF326 /* Debug */,
