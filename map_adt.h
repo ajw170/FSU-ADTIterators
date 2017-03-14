@@ -1,19 +1,27 @@
 /*
- oaa.h
+ map_adt.h
  Andrew J Wood
  COP 4530
  March 1, 2017
  
- This header file defines the Ordered Associative Array API and then implements it using a RBLLT
- (Red Black Left Leaning Tree). The purpose of the OAA is to function as a Table with the addition
- of a [] operator for retrievals.  In addition, the runtimes of all operations will be Theta(log n)
+ This header file defines the Map ADT API and then implements it using a RBLLT
+ (Red Black Left Leaning Tree). The purpose of the MAP ADT is to be a fully functioning Table with the addition
+ of a [] operator for retrievals.  In other words, this is a "Full Table API" which includes both
+ Associative Array and Table APIs.
+ 
+ Additionally, the Map ADT has full iterator support.  Iterators allow us to traverse the tree,
+ have methods like Includes(), ==(), and !=().
+ 
+ Iterators are implemented in a different class and can be of various types (e.g. Inorder, Levelorder).
+ 
+ The runtimes of all operations will be Theta(log n)
  with the exception of the Rehash() function, which will be Thetat(n log n).  The RBLLT structure is
  what ensures the log n runtimes; the rehash fucntion is n log n because it requires a full tree
  traversal and new tree creation.
  */
 
-#ifndef _OAA_H
-#define _OAA_H
+#ifndef _MAP_ADT_H
+#define _MAP_ADT_H
 
 #include <cstddef>    // size_t
 #include <iostream>
@@ -26,10 +34,10 @@
 namespace fsu
 {
     template < typename K , typename D , class P >
-    class OAA;
+    class Map_ADT;
     
     template < typename K , typename D , class P = LessThan<K> >
-    class OAA
+    class Map_ADT
     {
     public:
         
@@ -37,11 +45,11 @@ namespace fsu
         typedef D    DataType;
         typedef P    PredicateType;
         
-        OAA  ();
-        explicit OAA  (P p);
-        OAA  (const OAA& a);
-        ~OAA ();
-        OAA& operator=(const OAA& a);
+        Map_ADT  ();
+        explicit Map_ADT  (P p);
+        Map_ADT  (const Map_ADT& a);
+        ~Map_ADT ();
+        Map_ADT& operator=(const Map_ADT& a);
         
         DataType& operator [] (const KeyType& k)        { return Get(k); }
         
@@ -101,14 +109,14 @@ namespace fsu
         {
             //const KeyType   key_;
             //DataType  data_;
-            fsu::Entry  value_; //Entry holds a key and a data value
+            fsu::Entry<K,D>  value_; //Entry holds a key and a data value
             
             Node * lchild_, * rchild_;
             uint8_t flags_; //8 bit value
             Node (const KeyType& k, const DataType& d, Flags flags = DEFAULT) // Flags = RED, Alive
-            : key_(k), data_(d), lchild_(nullptr), rchild_(nullptr), flags_(flags)
+            : value_(k,d), lchild_(nullptr), rchild_(nullptr), flags_(flags)
             {}
-            friend class OAA<K,D,P>;
+            friend class Map_ADT<K,D,P>;
             bool IsRed    () const { return 0 != (RED & flags_); }
             bool IsBlack  () const { return !IsRed(); }
             bool IsDead   () const { return 0 != (DEAD & flags_); }
@@ -148,9 +156,9 @@ namespace fsu
                 if (n->IsAlive())
                 {
                     os_.setf(kf_,std::ios_base::adjustfield);
-                    os_ << std::setw(kw_) << n->key_;
+                    os_ << std::setw(kw_) << n->value_.key_;
                     os_.setf(df_,std::ios_base::adjustfield);
-                    os_ << std::setw(dw_) << n->data_;
+                    os_ << std::setw(dw_) << n->value_.data_;
                     os_ << '\n';
                 }
             }
@@ -164,18 +172,18 @@ namespace fsu
         class CopyNode
         {
         public:
-            CopyNode (Node*& newroot, OAA<K,D>* oaa) : newroot_(newroot), oldtree_(oaa) {}
+            CopyNode (Node*& newroot, Map_ADT<K,D>* Map_ADT) : newroot_(newroot), oldtree_(Map_ADT) {}
             void operator() (const Node * n) const
             {
                 if (n->IsAlive())
                 {
-                    newroot_ = oldtree_->RInsert(newroot_,n->key_, n->data_);
+                    newroot_ = oldtree_->RInsert(newroot_,n->value_.key_, n->value_.data_);
                     newroot_->SetBlack();
                 }
             }
         private:
             Node *&    newroot_;
-            OAA<K,D> * oldtree_;
+            Map_ADT<K,D> * oldtree_;
         };
         
     private: // data
@@ -203,34 +211,34 @@ namespace fsu
         // recursive left-leaning insert
         Node * RInsert(Node* nptr, const K& key, const D& data);
         
-    }; // class OAA<>
+    }; // class Map_ADT<>
     
     
     // API
     
     //1//
     template < typename K , typename D , class P >
-    D& OAA<K,D,P>::Get (const KeyType& k)
+    D& Map_ADT<K,D,P>::Get (const KeyType& k)
     {
         //returns reference to data value assoated with k; inserts if necessary
         Node * location;
         root_ = RGet(root_,k,location); //use recursive get to find location of key
         root_ -> SetBlack(); //root is always black
-        return location->data_; //returns node's data as a reference
+        return location->value_.data_; //returns node's data as a reference
     }
     
     //EC//
     template < typename K , typename D , class P >
-    void OAA<K,D,P>::Erase(const KeyType& k)
+    void Map_ADT<K,D,P>::Erase(const KeyType& k)
     {
         Node * n = root_; // start at root of tree
         while(n) //while on a valid node
         {
-            if (pred_(k, n->key_)) //if k is less than current key
+            if (pred_(k, n->value_.key_)) //if k is less than current key
             {
                 n = n->lchild_; //go left
             }
-            else if (pred_(n->key_, k)) //if k is greater than current key
+            else if (pred_(n->value_.key_, k)) //if k is greater than current key
             {
                 n = n->rchild_; //go right
             }
@@ -244,7 +252,7 @@ namespace fsu
     
     //2//
     template < typename K , typename D , class P >
-    void OAA<K,D,P>::Clear()
+    void Map_ADT<K,D,P>::Clear()
     {
         RRelease(root_); //delete all descendents of root
         delete root_; //delete the root itself
@@ -252,7 +260,7 @@ namespace fsu
     }
     
     template < typename K , typename D , class P >
-    void OAA<K,D,P>::Rehash()
+    void Map_ADT<K,D,P>::Rehash()
     { // this is complete!
         Node* newRoot = nullptr;
         CopyNode cn(newRoot,this);
@@ -263,7 +271,7 @@ namespace fsu
     
     //3//
     template < typename K , typename D , class P >
-    void  OAA<K,D,P>::Display (std::ostream& os, int kw, int dw, std::ios_base::fmtflags kf, std::ios_base::fmtflags df) const
+    void  Map_ADT<K,D,P>::Display (std::ostream& os, int kw, int dw, std::ios_base::fmtflags kf, std::ios_base::fmtflags df) const
     {
         PrintNode pn(os, kw, dw, kf, df);  //create print node object
         Traverse(pn); //traverse using PrintNode function object
@@ -271,7 +279,7 @@ namespace fsu
     
     //4//
     template < typename K , typename D , class P >
-    typename OAA<K,D,P>::Node * OAA<K,D,P>::RGet(Node* nptr, const K& kval, Node*& location)
+    typename Map_ADT<K,D,P>::Node * Map_ADT<K,D,P>::RGet(Node* nptr, const K& kval, Node*& location)
     // recursive left-leaning get; returns node location of found value
     {
         if (nptr == 0) //add new node at "bottom" of tree
@@ -279,11 +287,11 @@ namespace fsu
             location = NewNode(kval, D()); //note, will use DEFAULT as flags argument (RED and ALIVE)
             return location;
         }
-        if (pred_(kval,nptr->key_)) //if kval < key_ in current node, go to left subtree
+        if (pred_(kval,nptr->value_.key_)) //if kval < key_ in current node, go to left subtree
         {
             nptr->lchild_ = RGet(nptr->lchild_,kval,location);
         }
-        else if (pred_(nptr->key_,kval)) // if kval > key_ in current node, go to right subtree
+        else if (pred_(nptr->value_.key_,kval)) // if kval > key_ in current node, go to right subtree
         {
             nptr->rchild_ = RGet(nptr->rchild_,kval,location);
         }
@@ -313,24 +321,24 @@ namespace fsu
     
     //5//
     template < typename K , typename D , class P >
-    typename OAA<K,D,P>::Node * OAA<K,D,P>::RInsert(Node* nptr, const K& key, const D& data)
+    typename Map_ADT<K,D,P>::Node * Map_ADT<K,D,P>::RInsert(Node* nptr, const K& key, const D& data)
     // recursive left-leaning insert; very similar to RGet
     {
         if (nptr == 0) //add new node at "bottom" of tree
         {
             return NewNode(key, data); //note, will use DEFAULT as flags argument (RED)
         }
-        if (pred_(key,nptr->key_)) //if kval < key_ in current node, go to left subtree
+        if (pred_(key,nptr->value_.key_)) //if kval < key_ in current node, go to left subtree
         {
             nptr->lchild_ = RInsert(nptr->lchild_,key,data);
         }
-        else if (pred_(nptr->key_,key)) // if kval > key_ in current node, go to right subtree
+        else if (pred_(nptr->value_.key_,key)) // if kval > key_ in current node, go to right subtree
         {
             nptr->rchild_ = RInsert(nptr->rchild_,key,data);
         }
         else // the node exists and was found; overwrite data
         {
-            nptr->data_ = data; //overright data at corresponding key; note key is constant and cannot be overwritten
+            nptr->value_.data_ = data; //overright data at corresponding key; note key is constant and cannot be overwritten
             nptr->SetAlive(); //set Alive in case it is not already alive
         }
         
@@ -356,27 +364,27 @@ namespace fsu
     // proper type
     
     template < typename K , typename D , class P >
-    OAA<K,D,P>::OAA  () : root_(nullptr), pred_()
+    Map_ADT<K,D,P>::Map_ADT  () : root_(nullptr), pred_()
     {}
     
     template < typename K , typename D , class P >
-    OAA<K,D,P>::OAA  (P p) : root_(nullptr), pred_(p)
+    Map_ADT<K,D,P>::Map_ADT  (P p) : root_(nullptr), pred_(p)
     {}
     
     template < typename K , typename D , class P >
-    OAA<K,D,P>::~OAA ()
+    Map_ADT<K,D,P>::~Map_ADT ()
     {
         Clear();
     }
     
     template < typename K , typename D , class P >
-    OAA<K,D,P>::OAA( const OAA& tree ) : root_(nullptr), pred_(tree.pred_)
+    Map_ADT<K,D,P>::Map_ADT( const Map_ADT& tree ) : root_(nullptr), pred_(tree.pred_)
     {
         root_ = RClone(tree.root_);
     }
     
     template < typename K , typename D , class P >
-    OAA<K,D,P>& OAA<K,D,P>::operator=( const OAA& that )
+    Map_ADT<K,D,P>& Map_ADT<K,D,P>::operator=( const Map_ADT& that )
     {
         if (this != &that)
         {
@@ -388,7 +396,7 @@ namespace fsu
     
     // rotations
     template < typename K , typename D , class P >
-    typename OAA<K,D,P>::Node * OAA<K,D,P>::RotateLeft(Node * n)
+    typename Map_ADT<K,D,P>::Node * Map_ADT<K,D,P>::RotateLeft(Node * n)
     {
         if (nullptr == n || n->rchild_ == nullptr) return n;
         if (!n->rchild_->IsRed())
@@ -406,7 +414,7 @@ namespace fsu
     }
     
     template < typename K , typename D , class P >
-    typename OAA<K,D,P>::Node * OAA<K,D,P>::RotateRight(Node * n)
+    typename Map_ADT<K,D,P>::Node * Map_ADT<K,D,P>::RotateRight(Node * n)
     {
         if (n == nullptr || n->lchild_ == nullptr) return n;
         if (!n->lchild_->IsRed())
@@ -427,21 +435,21 @@ namespace fsu
     // private static recursive methods
     
     template < typename K , typename D , class P >
-    size_t OAA<K,D,P>::RSize(Node * n)
+    size_t Map_ADT<K,D,P>::RSize(Node * n)
     {
         if (n == nullptr) return 0;
         return (size_t)(n->IsAlive()) + RSize(n->lchild_) + RSize(n->rchild_);
     }
     
     template < typename K , typename D , class P >
-    size_t OAA<K,D,P>::RNumNodes(Node * n)
+    size_t Map_ADT<K,D,P>::RNumNodes(Node * n)
     {
         if (n == nullptr) return 0;
         return 1 + RNumNodes(n->lchild_) + RNumNodes(n->rchild_);
     }
     
     template < typename K , typename D , class P >
-    int OAA<K,D,P>::RHeight(Node * n)
+    int Map_ADT<K,D,P>::RHeight(Node * n)
     {
         if (n == nullptr) return -1;
         int lh = RHeight(n->lchild_);
@@ -452,7 +460,7 @@ namespace fsu
     
     template < typename K , typename D , class P >
     template < class F >
-    void OAA<K,D,P>::RTraverse (Node * n, F f)
+    void Map_ADT<K,D,P>::RTraverse (Node * n, F f)
     {
         if (n == nullptr) return;
         RTraverse(n->lchild_,f);
@@ -461,48 +469,48 @@ namespace fsu
     }
     
     template < typename K , typename D , class P >
-    void OAA<K,D,P>::RRelease(Node* n)
+    void Map_ADT<K,D,P>::RRelease(Node* n)
     // post:  all descendants of n have been deleted
     {
         if (n != nullptr)
         {
             if (n->lchild_ != nullptr)
             {
-                OAA<K,D,P>::RRelease(n->lchild_);
+                Map_ADT<K,D,P>::RRelease(n->lchild_);
                 delete n->lchild_;
                 n->lchild_ = nullptr;
             }
             if (n->rchild_ != nullptr)
             {
-                OAA<K,D,P>::RRelease(n->rchild_);
+                Map_ADT<K,D,P>::RRelease(n->rchild_);
                 delete n->rchild_;
                 n->rchild_ = nullptr;
             }
         }
-    } // OAA<K,D,P>::RRelease()
+    } // Map_ADT<K,D,P>::RRelease()
     
     template < typename K , typename D , class P >
-    typename OAA<K,D,P>::Node* OAA<K,D,P>::RClone(const OAA<K,D,P>::Node* n)
+    typename Map_ADT<K,D,P>::Node* Map_ADT<K,D,P>::RClone(const Map_ADT<K,D,P>::Node* n)
     // returns a pointer to a deep copy of n
     {
         if (n == nullptr)
             return 0;
-        typename OAA<K,D,P>::Node* newN = NewNode (n->key_,n->data_);
+        typename Map_ADT<K,D,P>::Node* newN = NewNode (n->value_.key_,n->value_.data_);
         newN->flags_ = n->flags_;
-        newN->lchild_ = OAA<K,D,P>::RClone(n->lchild_);
-        newN->rchild_ = OAA<K,D,P>::RClone(n->rchild_);
+        newN->lchild_ = Map_ADT<K,D,P>::RClone(n->lchild_);
+        newN->rchild_ = Map_ADT<K,D,P>::RClone(n->rchild_);
         return newN;
-    } // end OAA<K,D,P>::RClone() */
+    } // end Map_ADT<K,D,P>::RClone() */
     
     
     // private node allocator
     template < typename K , typename D , class P >
-    typename OAA<K,D,P>::Node * OAA<K,D,P>::NewNode(const K& k, const D& d, Flags flags)
+    typename Map_ADT<K,D,P>::Node * Map_ADT<K,D,P>::NewNode(const K& k, const D& d, Flags flags)
     {
         Node * nPtr = new(std::nothrow) Node(k,d,flags);
         if (nPtr == nullptr)
         {
-            std::cerr << "** OAA memory allocation failure\n";
+            std::cerr << "** Map_ADT memory allocation failure\n";
             // handle exception in-class here
         }
         return nPtr;
@@ -511,7 +519,7 @@ namespace fsu
     // development assistants
     
     template < typename K , typename D , class P >
-    void OAA<K,D,P>::DumpBW (std::ostream& os) const
+    void Map_ADT<K,D,P>::DumpBW (std::ostream& os) const
     {
         // fsu::debug ("DumpBW(1)");
         // This is the same as "Dump(1)" except it uses a character map instead of a
@@ -599,7 +607,7 @@ namespace fsu
     } // DumpBW(os)
     
     template < typename K , typename D , class P >
-    void OAA<K,D,P>::Dump (std::ostream& os) const
+    void Map_ADT<K,D,P>::Dump (std::ostream& os) const
     {
         // fsu::debug ("Dump(1)");
         
@@ -691,7 +699,7 @@ namespace fsu
     } // Dump(os)
     
     template < typename K , typename D , class P >
-    void OAA<K,D,P>::Dump (std::ostream& os, int kw) const
+    void Map_ADT<K,D,P>::Dump (std::ostream& os, int kw) const
     {
         // fsu::debug ("Dump(2)");
         if (root_ == nullptr)
@@ -710,7 +718,7 @@ namespace fsu
                 current = Que.Front();
                 Que.Pop();
                 if (kw > 1) os << ' '; // indent each column 1 space
-                os << ColorMap(current->flags_) << std::setw(kw) << current->key_<< ANSI_RESET_ALL;
+                os << ColorMap(current->flags_) << std::setw(kw) << current->value_.key_<< ANSI_RESET_ALL;
                 if (current->lchild_ != nullptr)
                 {
                     Que.Push(current->lchild_);
@@ -726,11 +734,11 @@ namespace fsu
             currLayerSize = nextLayerSize;
         } // end while
         if (currLayerSize > 0)
-            std::cerr << "** OAA<K,D,P>::Dump() inconsistency\n";
+            std::cerr << "** Map_ADT<K,D,P>::Dump() inconsistency\n";
     } // Dump(os, kw)
     
     template < typename K , typename D , class P >
-    void OAA<K,D,P>::Dump (std::ostream& os, int kw, char fill) const
+    void Map_ADT<K,D,P>::Dump (std::ostream& os, int kw, char fill) const
     {
         // fsu::debug ("Dump(3)");
         if (root_ == nullptr)
@@ -758,7 +766,7 @@ namespace fsu
                 }
                 else
                 {
-                    os << ColorMap(current->flags_) << std::setw(kw) << current->key_<< ANSI_RESET_ALL;
+                    os << ColorMap(current->flags_) << std::setw(kw) << current->value_.key_<< ANSI_RESET_ALL;
                 }
                 
                 if (current->lchild_ != nullptr)

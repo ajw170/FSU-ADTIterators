@@ -36,6 +36,8 @@
 		980551D71E779C90001CF326 /* deque.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deque.h; sourceTree = "<group>"; };
 		980551D81E779CA8001CF326 /* deque.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = deque.cpp; sourceTree = "<group>"; };
 		980551DA1E779CEB001CF326 /* pair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pair.h; sourceTree = "<group>"; };
+		98BEA09C1E786CCD00C9DD95 /* xstring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xstring.cpp; sourceTree = "<group>"; };
+		98BEA09D1E786CCD00C9DD95 /* xstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xstring.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,8 @@
 		980551D21E779B72001CF326 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				98BEA09C1E786CCD00C9DD95 /* xstring.cpp */,
+				98BEA09D1E786CCD00C9DD95 /* xstring.h */,
 				980551DA1E779CEB001CF326 /* pair.h */,
 				980551D81E779CA8001CF326 /* deque.cpp */,
 				980551D61E779C90001CF326 /* ansicodes.h */,
@@ -284,6 +288,7 @@
 				980551C91E7792B8001CF326 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

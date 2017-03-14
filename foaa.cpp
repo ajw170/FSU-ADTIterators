@@ -117,7 +117,7 @@ void AssignTest ( const C& x1 )
 
 int main(int argc, char* argv[])
 {
-  fsu::OAA<KeyType, DataType> aa;
+  fsu::Map_ADT<KeyType, DataType> aa;
   KeyType     key;
   DataType    data;
   char        command;
