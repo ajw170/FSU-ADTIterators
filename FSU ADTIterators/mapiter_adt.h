@@ -1,5 +1,20 @@
 /*
-    mapiter_adt.start
+ mapiter_adt.h
+ Andrew J Wood
+ COP 4530
+ March 14, 2017
+ 
+ This header file defines and implements iterators for use with the fsu "Map" Abstract Data Type
+ (ADT).  The iterators implemented are:
+ 
+ -Constant Inorder Map Iterator (Bidirectional)
+ -Inorder Map Iterator (Bidirectional)
+ -Preorder Map Iterator (not implemented)
+ -Postorder Map Iterator (not implemented)
+ -Levelorder Map Iterator (Forward only)
+ 
+ The code is self-documenting.  Note that the Inorder iterators are implemnted using fsu::Stack ADT and
+ the levelorder iterators are implemented using fsu::Queue ADT.
 */
 
 #include <queue.h>
@@ -14,7 +29,7 @@
 
 namespace fsu
 {
-
+    //note: "C" template parameter is any BST-type container
   template < class C >
   class ConstInorderMapIterator; // patterns: ConstIterator, BidirectionalIterator
 
@@ -44,7 +59,7 @@ namespace fsu
     typedef LevelorderMapIterator<C>                                       Iterator;
 
   private: // inner sanctum
-    friend C;
+    friend C; //needed for nodes, etc
     fsu::Queue < Node* > que_; // default is deque-based
 
   public:
@@ -72,6 +87,7 @@ namespace fsu
     void Increment ();
   };
 
+    
   template < class C >
   void LevelorderMapIterator<C>::Dump(std::ostream& os, char ofc) const
   {
@@ -95,24 +111,49 @@ namespace fsu
     os << '\n';
   }
   
+    
   template < class C >
   void LevelorderMapIterator<C>::Init(Node* n)
+    //intended to be useed with root_
   {
+      que_.Clear();
+      if (n == nullptr) return;
+      que_.Push(n);
+      while (!que_.Empty() && que_.Front()->IsDead()) //if the front item is a deaad node
+          Increment();
   }
 
+    
   template < class C >
   void LevelorderMapIterator<C>::Increment()
   {
+      if (que_.Empty())
+          return;
+      Node * n = que_.Front();
+      que_.Pop();
+      if (n->HasLeftChild()) que_.Push(n->lchild_);
+      if (n->HasRightChild()) que_.Push(n->rchild_);
   }
+    
 
   template < class C >
   LevelorderMapIterator<C>&  LevelorderMapIterator<C>::operator++ ()
   {
+      do
+      {
+          Increment();
+      }
+      while (Valid() && que_.Front()->IsDead());
+      return *this;
   }
 
+    
   template < class C >
   LevelorderMapIterator<C>   LevelorderMapIterator<C>::operator++ (int)
   {
+      LevelorderMapIterator<C> i = *this;
+      operator++();
+      return i;
   }
 
   /******************************************************************/
@@ -192,11 +233,22 @@ namespace fsu
     os << '\n';
   }
   
+    
   template < class C >
   void ConstInorderMapIterator<C>::sInit(Node* n)
+  // only intended to be used with n = root_; sets it to first node regardless of Dead or Alive status
   {
+      if (n == nullptr) return;
+      stk_.Clear();
+      stk_.Push(n);
+      while (n != nullptr && n->HasLeftChild()) //slide down to the left as far as possible
+      {
+          n = n->lchild_;
+          stk_.Push(n); //push node pointer onto stack
+      }
   }
 
+    
   template < class C >
   void ConstInorderMapIterator<C>::Init(Node* n)
   // only intended to be used with n = root_
@@ -213,11 +265,23 @@ namespace fsu
       Increment();
   }
 
+
   template < class C >
   void ConstInorderMapIterator<C>::rInit(Node* n)
   // only intended to be used with n = root_
   {
+      if (n == nullptr) return;
+      stk_.Clear();
+      stk_.Push(n);
+      while (n != nullptr && n->HasRightChild())
+      {
+          n = n->rchild_;
+          stk_.Push(n);
+      }
+      while (Valid() && stk_.Top()->IsDead())
+          Decrement();
   }
+    
 
   template < class C >
   void ConstInorderMapIterator<C>::Increment()
@@ -249,29 +313,72 @@ namespace fsu
     }
   }
 
+    
   template < class C >
   void ConstInorderMapIterator<C>::Decrement()
   {
+      if ( stk_.Empty() )
+          return;
+      Node * n;
+      if ( stk_.Top()->HasLeftChild() ) //if the stack has a left child, go left and slide down right
+      {                                 // as far as possible
+          n = stk_.Top()->lchild_;
+          stk_.Push(n);
+          while (n != nullptr && n->HasRightChild() )
+          {
+              n = n->rchild_;
+              stk_.Push(n);
+          }
+      }
+      else //if the top item in stack does not have a left child
+      {
+          do
+          {
+              n = stk_.Top();
+              stk_.Pop();
+          }
+          while ( !stk_.Empty() && stk_.Top()->HasLeftChild() && n == stk_.Top()->lchild_ );
+      }
   }
 
+    
   template < class C >
   ConstInorderMapIterator<C>&  ConstInorderMapIterator<C>::operator++ ()
   {
+      do
+      {
+          Increment();
+      }
+      while (Valid() && stk_.Top()->IsDead()); //increment until non-dead node is found
+      return *this;
   }
 
+    
   template < class C >
   ConstInorderMapIterator<C>   ConstInorderMapIterator<C>::operator++ (int)
   {
+      ConstInorderMapIterator<C> i = *this;
+      operator++();
+      return i;
   }
 
   template < class C >
   ConstInorderMapIterator<C>&  ConstInorderMapIterator<C>::operator-- ()
   {
+      do
+      {
+          Decrement();
+      }
+      while (Valid() && stk_.Top()->IsDead());
+      return *this;
   }
 
   template < class C >
   ConstInorderMapIterator<C>   ConstInorderMapIterator<C>::operator-- (int)
   {
+      ConstInorderMapIterator<C> i = *this;
+      operator--();
+      return i;
   }
 
   /******************************************************************/

@@ -2,7 +2,7 @@
  map_adt.h
  Andrew J Wood
  COP 4530
- March 1, 2017
+ March 12, 2017
  
  This header file defines the Map ADT API and then implements it using a RBLLT
  (Red Black Left Leaning Tree). The purpose of the MAP ADT is to be a fully functioning Table with the addition
@@ -30,20 +30,54 @@
 #include <queue.h>    // used in Dump()
 #include <ansicodes.h>
 #include <entry.h>
+#include <mapiter_adt.h>
 
 namespace fsu
 {
     template < typename K , typename D , class P >
     class Map_ADT;
     
+    template < typename K , typename D , class P >
+    bool operator == (const Map_ADT<K,D,P> &map1, const Map_ADT<K,D,P> &map2);
+    
+    template < typename K , typename D , class P >
+    bool operator != (const Map_ADT<K,D,P> &map1, const Map_ADT<K,D,P> &map2);
+    
     template < typename K , typename D , class P = LessThan<K> >
     class Map_ADT
     {
     public:
         
-        typedef K    KeyType;
-        typedef D    DataType;
-        typedef P    PredicateType;
+        //family ties
+        friend class ConstInorderMapIterator < fsu::Map_ADT<K,D,P> >;
+        friend class InorderMapIterator < fsu::Map_ADT<K,D,P> >;
+        friend class LevelorderMapIterator < fsu::Map_ADT<K,D,P> >;
+        
+        //terminology support
+        typedef K                                           KeyType;
+        typedef D                                           DataType;
+        typedef P                                           PredicateType;
+        typedef fsu::Entry<K,D>                             EntryType;
+        typedef InorderMapIterator< Map_ADT<K,D,P> >        Iterator; //the "default" Iterator
+        typedef ConstInorderMapIterator < Map_ADT<K,D,P> >  ConstIterator;
+        
+        //iterator support
+        Iterator        Begin   ();
+        Iterator        End     ();
+        Iterator        rBegin  ();
+        Iterator        rEnd    ();
+        ConstIterator   Begin   () const;
+        ConstIterator   End     () const;
+        ConstIterator   rBegin  () const;
+        ConstIterator   rEnd    () const;
+        
+        //special iterators
+        typedef LevelorderMapIterator <Map_ADT<K,D,P>> LevelorderIterator;
+        LevelorderIterator BeginLevelorder  () const;
+        LevelorderIterator EndLevelorder    () const;
+        
+        //structural iterator support
+        ConstIterator BeginStructuralInorder () const;
         
         Map_ADT  ();
         explicit Map_ADT  (P p);
@@ -55,6 +89,15 @@ namespace fsu
         
         void Put (const KeyType& k , const DataType& d) { Get(k) = d; }
         D&   Get (const KeyType& k);
+        
+        //Additional Table API features
+        bool Retrieve (const KeyType &k, DataType &d);
+        
+        //Includes methods
+        Iterator Includes (const KeyType& k);
+        ConstIterator Includes (const KeyType& k) const;
+        
+        void Insert (const KeyType& k, const DataType& d) { Put(k,d); } //insert is an alias for Put
         
         void Erase(const KeyType& k);
         void Clear();
@@ -108,7 +151,13 @@ namespace fsu
             Node (const KeyType& k, const DataType& d, Flags flags = DEFAULT) // Flags = RED, Alive
             : value_(k,d), lchild_(nullptr), rchild_(nullptr), flags_(flags)
             {}
-            friend class Map_ADT<K,D,P>;
+            
+            //family ties
+            friend class Map_ADT <K,D,P>;
+            friend class ConstInorderMapIterator    < fsu::Map_ADT<K,D,P> >;
+            friend class InorderMapIterator         < fsu::Map_ADT<K,D,P> >;
+            friend class LevelorderMapIterator      < fsu::Map_ADT<K,D,P> >;
+            
             bool IsRed    () const { return 0 != (RED & flags_); }
             bool IsBlack  () const { return !IsRed(); }
             bool IsDead   () const { return 0 != (DEAD & flags_); }
@@ -135,8 +184,17 @@ namespace fsu
                     return 0;
             }
             
+            bool HasRightChild() const
+            {
+                return this->rchild_ != nullptr;
+            }
+            
+            bool HasLeftChild() const
+            {
+                return this->lchild_ != nullptr;
+            }
+            
         };
-        
         
     private: // data
         Node *         root_;
@@ -154,23 +212,221 @@ namespace fsu
         static Node * RotateLeft  (Node * n);
         static Node * RotateRight (Node * n);
         
-        /* Potential removal ***
-        template < class F >
-        static void   RTraverse (Node * n, F f);
-         */
-        
         // recursive left-leaning get
         Node * RGet(Node* nptr, const K& kval, Node*& location);
         
         // recursive left-leaning insert
         Node * RInsert(Node* nptr, const K& key, const D& data);
         
+        
+    public: //signatures for map_tools.cpp
+        bool CheckBST(bool verboseFlag) const;
+        bool CheckRBLLT (int verboseFlag) const;
+        
+        
+        
     }; // class Map_ADT<>
     
     
-    // API
+    //global operator implementations
+    template < typename K, typename D, class P >
+    bool operator == (const Map_ADT<K,D,P> &map1, const Map_ADT<K,D,P> &map2)
+    {
+        typename Map_ADT<K,D,P>::ConstIterator i,j;
+        for (i = map1.Begin(), j = map2.Begin(); i != map1.End() && j != map2.End(); ++i, ++j)
+        {
+            if ( (*i).key_ != (*j).key_ || (*i).data_ != (*j).data_ )
+                return 0;
+        }
+        if (i != map1.End() || j != map2.End() ) //check to see if one hasn't reached the end
+        {
+            return 0;
+        }
+        return 1;
+    }
     
-    //1//
+    
+    template < typename K, typename D, class P >
+    bool operator != (const Map_ADT<K,D,P> &map1, const Map_ADT<K,D,P> &map2)
+    {
+        return !(map1 == map2);
+    }
+    
+    
+    //Iterator Support Methods
+    template < typename K, typename D, class P >
+    typename Map_ADT<K,D,P>::Iterator Map_ADT<K,D,P>::Begin()
+    {
+        Iterator i;
+        i.Init(root_);
+        return i;
+    }
+    
+    
+    template < typename K, typename D, class P >
+    typename Map_ADT<K,D,P>::Iterator Map_ADT<K,D,P>::End()
+    {
+        Iterator i;
+        return i;  //note - end iterator is Null
+    }
+    
+    
+    template < typename K, typename D, class P >
+    typename Map_ADT<K,D,P>::Iterator Map_ADT<K,D,P>::rBegin()
+    {
+        Iterator i;
+        i.rInit(root_);
+        return i;
+    }
+    
+    
+    template < typename K, typename D, class P >
+    typename Map_ADT<K,D,P>::Iterator Map_ADT<K,D,P>::rEnd()
+    {
+        Iterator i;
+        return i; //note - rEnd iterator is null
+    }
+    
+    
+    template < typename K, typename D, class P >
+    typename Map_ADT<K,D,P>::ConstIterator Map_ADT<K,D,P>::Begin() const
+    {
+        ConstIterator i;
+        i.Init(root_);
+        return i;
+    }
+    
+    
+    template < typename K, typename D, class P >
+    typename Map_ADT<K,D,P>::ConstIterator Map_ADT<K,D,P>::End() const
+    {
+        ConstIterator i;
+        return i;
+    }
+    
+    
+    template < typename K, typename D, class P >
+    typename Map_ADT<K,D,P>::ConstIterator Map_ADT<K,D,P>::rBegin() const
+    {
+        ConstIterator i;
+        i.rInit(root_);
+        return i;
+    }
+    
+    
+    template < typename K, typename D, class P >
+    typename Map_ADT<K,D,P>::ConstIterator Map_ADT<K,D,P>::rEnd() const
+    {
+        Iterator i;
+        return i;
+    }
+    
+    
+    template < typename K, typename D, class P >
+    typename Map_ADT<K,D,P>::LevelorderIterator Map_ADT<K,D,P>::BeginLevelorder() const
+    {
+        LevelorderIterator i;
+        i.Init(root_);
+        return i;
+    }
+    
+    
+    template < typename K, typename D, class P >
+    typename Map_ADT<K,D,P>::LevelorderIterator Map_ADT<K,D,P>::EndLevelorder() const
+    {
+        LevelorderIterator i;
+        return i;
+    }
+    
+    
+    template < typename K, typename D, class P >
+    typename Map_ADT<K,D,P>::ConstIterator Map_ADT<K,D,P>::BeginStructuralInorder() const
+    {
+        ConstIterator i;
+        i.sInit(root_);
+        return i;
+    }
+
+    
+    //New implementations for Retrieve and Includes
+    template < typename K, typename D, class P >
+    bool Map_ADT<K,D,P>::Retrieve (const KeyType &k, DataType &d)
+    {
+        Iterator i = this->Includes(k); //return iterator to entry containing key k
+        if (i == this->End()) //if not found
+            return 0; //do nothing, return false
+        else // found
+        {
+            d = (*i).data_; //key found, overrite data value sent
+            return 1; //return true
+        }
+    }
+
+    
+    template < typename K, typename D, class P >
+    typename Map_ADT<K,D,P>::Iterator Map_ADT<K,D,P>::Includes (const KeyType &k)
+    {
+        Iterator i; //declare iterator, initializes with empty stack
+        Node * n = root_; //start at the root of the tree
+        
+        while(n) //while not null
+        {
+            if (pred_(k, n->value_.key_)) //if k is less than current key
+            {
+                (i.stk_).Push(n); //push node to stack
+                n = n->lchild_; //go left
+            }
+            else if (pred_(n->value_.key_,k)) //if k is greater than current key
+            {
+                (i.stk_).Push(n);
+                n = n->rchild_; //go right
+            }
+            else // key found
+            {
+                (i.stk_).Push(n);
+                if (n->IsAlive())
+                    return i; //returns iterator with top stack value as found value if the node is alive
+                else
+                    return End();
+            }
+        }
+        //if we make it out of the loop, the key was not found at atll
+        return End();
+    }
+    
+    
+    template < typename K, typename D, class P >
+    typename Map_ADT<K,D,P>::ConstIterator Map_ADT<K,D,P>::Includes (const KeyType &k) const
+    {
+        Iterator i; //declare iterator, initializes with empty stack
+        Node * n = root_; //start at the root of the tree
+        
+        while(n) //while not null
+        {
+            if (pred_(k, n->value_.key_)) //if k is less than current key
+            {
+                (i.stk_).Push(n); //push node to stack
+                n = n->lchild_; //go left
+            }
+            else if (pred_(n->value_.key_,k)) //if k is greater than current key
+            {
+                (i.stk_).Push(n);
+                n = n->rchild_; //go right
+            }
+            else // key found
+            {
+                (i.stk_).Push(n);
+                if (n->IsAlive())
+                    return i; //returns iterator with top stack value as found value if the node is alive
+                else
+                    return End();
+            }
+        }
+        //if we make it out of the loop, the key was not found at atll
+        return End();
+    }
+    
+    
     template < typename K , typename D , class P >
     D& Map_ADT<K,D,P>::Get (const KeyType& k)
     {
@@ -180,8 +436,7 @@ namespace fsu
         root_ -> SetBlack(); //root is always black
         return location->value_.data_; //returns node's data as a reference
     }
-    
-    //EC//
+
     template < typename K , typename D , class P >
     void Map_ADT<K,D,P>::Erase(const KeyType& k)
     {
@@ -204,7 +459,7 @@ namespace fsu
         }
     }
     
-    //2//
+
     template < typename K , typename D , class P >
     void Map_ADT<K,D,P>::Clear()
     {
@@ -213,17 +468,22 @@ namespace fsu
         root_ = 0; //set root to 0 (empty tree)
     }
     
+    
     template < typename K , typename D , class P >
     void Map_ADT<K,D,P>::Rehash()
-    { // this is complete!
-        Node* newRoot = nullptr;
-        CopyNode cn(newRoot,this);
-        Traverse(cn);
-        Clear();
-        root_ = newRoot;
+    //restructure with no tombstones
+    {
+        Node * newRoot = nullptr;
+        for (ConstIterator i = this->Begin(); i != this->End(); ++i)
+        {
+            newRoot = RInsert(newRoot,(*i).key_, (*i).data_);
+            newRoot->SetBlack();
+        }
+        this->Clear(); //clears existing tree
+        this->root_ = newRoot;
     }
     
-    //4//
+    
     template < typename K , typename D , class P >
     typename Map_ADT<K,D,P>::Node * Map_ADT<K,D,P>::RGet(Node* nptr, const K& kval, Node*& location)
     // recursive left-leaning get; returns node location of found value
@@ -265,7 +525,6 @@ namespace fsu
     }
     
     
-    //5//
     template < typename K , typename D , class P >
     typename Map_ADT<K,D,P>::Node * Map_ADT<K,D,P>::RInsert(Node* nptr, const K& key, const D& data)
     // recursive left-leaning insert; very similar to RGet
@@ -302,10 +561,6 @@ namespace fsu
         
         return nptr; //returns root location;
     }
-    
-    
-    /************************************/
-    /* everyting below here is complete */
     
     // proper type
     
@@ -404,17 +659,6 @@ namespace fsu
         return 1 + lh;
     }
     
-    /* Potential Removal******
-    template < typename K , typename D , class P >
-    template < class F >
-    void Map_ADT<K,D,P>::RTraverse (Node * n, F f)
-    {
-        if (n == nullptr) return;
-        RTraverse(n->lchild_,f);
-        f(n);
-        RTraverse(n->rchild_,f);
-    }
-    */
     
     template < typename K , typename D , class P >
     void Map_ADT<K,D,P>::RRelease(Node* n)
@@ -436,6 +680,7 @@ namespace fsu
             }
         }
     } // Map_ADT<K,D,P>::RRelease()
+    
     
     template < typename K , typename D , class P >
     typename Map_ADT<K,D,P>::Node* Map_ADT<K,D,P>::RClone(const Map_ADT<K,D,P>::Node* n)
@@ -743,6 +988,8 @@ namespace fsu
         Que.Clear();
         delete fillNode;
     } // Dump(os, kw, fill) */
+    
+#include <map_tools.cpp> //slave file, logically included
     
 } // namespace fsu 
 

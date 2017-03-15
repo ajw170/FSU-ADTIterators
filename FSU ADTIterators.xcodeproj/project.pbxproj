@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		980551D01E779A8A001CF326 /* foaa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 980551CB1E779A8A001CF326 /* foaa.cpp */; };
+		98AB47811E79BC3E00871A18 /* fmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98BEA09F1E788C1E00C9DD95 /* fmap.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,12 +23,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		980551C01E7792B8001CF326 /* MAP FOAA */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "MAP FOAA"; sourceTree = BUILT_PRODUCTS_DIR; };
+		980551C01E7792B8001CF326 /* Map FMap */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Map FMap"; sourceTree = BUILT_PRODUCTS_DIR; };
 		980551CA1E779A8A001CF326 /* cleanup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cleanup.cpp; sourceTree = "<group>"; };
 		980551CB1E779A8A001CF326 /* foaa.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = foaa.cpp; sourceTree = "<group>"; };
-		980551CC1E779A8A001CF326 /* map_adt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = map_adt.h; sourceTree = "<group>"; };
-		980551CD1E779A8A001CF326 /* wordsmith3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wordsmith3.cpp; sourceTree = "<group>"; };
-		980551CE1E779A8A001CF326 /* wordsmith3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wordsmith3.h; sourceTree = "<group>"; };
+		980551CC1E779A8A001CF326 /* map_adt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = map_adt.h; path = ../map_adt.h; sourceTree = "<group>"; };
+		980551CD1E779A8A001CF326 /* wordsmith3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wordsmith3.cpp; path = ../wordsmith3.cpp; sourceTree = "<group>"; };
+		980551CE1E779A8A001CF326 /* wordsmith3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wordsmith3.h; path = ../wordsmith3.h; sourceTree = "<group>"; };
 		980551D31E779B9E001CF326 /* entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = entry.h; sourceTree = "<group>"; };
 		980551D41E779BB4001CF326 /* compare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = compare.h; sourceTree = "<group>"; };
 		980551D51E779C69001CF326 /* queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = queue.h; sourceTree = "<group>"; };
@@ -36,14 +36,23 @@
 		980551D71E779C90001CF326 /* deque.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deque.h; sourceTree = "<group>"; };
 		980551D81E779CA8001CF326 /* deque.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = deque.cpp; sourceTree = "<group>"; };
 		980551DA1E779CEB001CF326 /* pair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pair.h; sourceTree = "<group>"; };
+		98AB47781E79BAB700871A18 /* genalg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = genalg.h; sourceTree = "<group>"; };
+		98AB47791E79BAD500871A18 /* vector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector.cpp; sourceTree = "<group>"; };
+		98AB477B1E79BAF800871A18 /* list.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = list.cpp; sourceTree = "<group>"; };
+		98AB477D1E79BB1300871A18 /* list_macro.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = list_macro.cpp; sourceTree = "<group>"; };
+		98AB477E1E79BB1300871A18 /* list_sort.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = list_sort.cpp; sourceTree = "<group>"; };
 		98BEA09C1E786CCD00C9DD95 /* xstring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xstring.cpp; sourceTree = "<group>"; };
 		98BEA09D1E786CCD00C9DD95 /* xstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xstring.h; sourceTree = "<group>"; };
 		98BEA09F1E788C1E00C9DD95 /* fmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fmap.cpp; sourceTree = "<group>"; };
 		98BEA0A01E788C1E00C9DD95 /* main_ws3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main_ws3.cpp; sourceTree = "<group>"; };
 		98BEA0A11E788C1E00C9DD95 /* map_tools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map_tools.cpp; sourceTree = "<group>"; };
-		98BEA0A21E788C1E00C9DD95 /* mapiter_adt.start */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mapiter_adt.start; sourceTree = "<group>"; };
+		98BEA0A21E788C1E00C9DD95 /* mapiter_adt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mapiter_adt.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		98BEA0A31E788C1E00C9DD95 /* mmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mmap.cpp; sourceTree = "<group>"; };
 		98BEA0A41E788C1E00C9DD95 /* rantable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rantable.cpp; sourceTree = "<group>"; };
+		98BEA0AA1E78DC4800C9DD95 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
+		98BEA0AB1E78DC4800C9DD95 /* list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = list.h; sourceTree = "<group>"; };
+		98BEA0AC1E78DC4800C9DD95 /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
+		98BEA0AD1E78DC4800C9DD95 /* vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,11 +70,6 @@
 			isa = PBXGroup;
 			children = (
 				980551D21E779B72001CF326 /* Support Files */,
-				980551CA1E779A8A001CF326 /* cleanup.cpp */,
-				980551CB1E779A8A001CF326 /* foaa.cpp */,
-				980551CC1E779A8A001CF326 /* map_adt.h */,
-				980551CD1E779A8A001CF326 /* wordsmith3.cpp */,
-				980551CE1E779A8A001CF326 /* wordsmith3.h */,
 				980551C21E7792B8001CF326 /* FSU ADTIterators */,
 				980551C11E7792B8001CF326 /* Products */,
 			);
@@ -74,7 +78,7 @@
 		980551C11E7792B8001CF326 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				980551C01E7792B8001CF326 /* MAP FOAA */,
+				980551C01E7792B8001CF326 /* Map FMap */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -82,10 +86,13 @@
 		980551C21E7792B8001CF326 /* FSU ADTIterators */ = {
 			isa = PBXGroup;
 			children = (
+				980551CD1E779A8A001CF326 /* wordsmith3.cpp */,
+				980551CC1E779A8A001CF326 /* map_adt.h */,
+				980551CE1E779A8A001CF326 /* wordsmith3.h */,
 				98BEA09F1E788C1E00C9DD95 /* fmap.cpp */,
 				98BEA0A01E788C1E00C9DD95 /* main_ws3.cpp */,
 				98BEA0A11E788C1E00C9DD95 /* map_tools.cpp */,
-				98BEA0A21E788C1E00C9DD95 /* mapiter_adt.start */,
+				98BEA0A21E788C1E00C9DD95 /* mapiter_adt.h */,
 				98BEA0A31E788C1E00C9DD95 /* mmap.cpp */,
 				98BEA0A41E788C1E00C9DD95 /* rantable.cpp */,
 			);
@@ -95,6 +102,17 @@
 		980551D21E779B72001CF326 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				98AB477D1E79BB1300871A18 /* list_macro.cpp */,
+				98AB477E1E79BB1300871A18 /* list_sort.cpp */,
+				98AB477B1E79BAF800871A18 /* list.cpp */,
+				98AB47791E79BAD500871A18 /* vector.cpp */,
+				98AB47781E79BAB700871A18 /* genalg.h */,
+				98BEA0AA1E78DC4800C9DD95 /* debug.h */,
+				98BEA0AB1E78DC4800C9DD95 /* list.h */,
+				98BEA0AC1E78DC4800C9DD95 /* stack.h */,
+				98BEA0AD1E78DC4800C9DD95 /* vector.h */,
+				980551CB1E779A8A001CF326 /* foaa.cpp */,
+				980551CA1E779A8A001CF326 /* cleanup.cpp */,
 				98BEA09C1E786CCD00C9DD95 /* xstring.cpp */,
 				98BEA09D1E786CCD00C9DD95 /* xstring.h */,
 				980551DA1E779CEB001CF326 /* pair.h */,
@@ -111,9 +129,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		980551BF1E7792B8001CF326 /* MAP FOAA */ = {
+		980551BF1E7792B8001CF326 /* Map FMap */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 980551C71E7792B8001CF326 /* Build configuration list for PBXNativeTarget "MAP FOAA" */;
+			buildConfigurationList = 980551C71E7792B8001CF326 /* Build configuration list for PBXNativeTarget "Map FMap" */;
 			buildPhases = (
 				980551BC1E7792B8001CF326 /* Sources */,
 				980551BD1E7792B8001CF326 /* Frameworks */,
@@ -123,9 +141,9 @@
 			);
 			dependencies = (
 			);
-			name = "MAP FOAA";
+			name = "Map FMap";
 			productName = "FSU ADTIterators";
-			productReference = 980551C01E7792B8001CF326 /* MAP FOAA */;
+			productReference = 980551C01E7792B8001CF326 /* Map FMap */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -155,7 +173,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				980551BF1E7792B8001CF326 /* MAP FOAA */,
+				980551BF1E7792B8001CF326 /* Map FMap */,
 			);
 		};
 /* End PBXProject section */
@@ -165,7 +183,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				980551D01E779A8A001CF326 /* foaa.cpp in Sources */,
+				98AB47811E79BC3E00871A18 /* fmap.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,7 +282,7 @@
 			buildSettings = {
 				OTHER_CPLUSPLUSFLAGS = (
 					"-I$(PROJECT_DIR)",
-					"-I$(PROJECT_DIR)/*",
+					"-I$(PROJECT_DIR)/FSU\\ ADTIterators",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -275,7 +293,7 @@
 			buildSettings = {
 				OTHER_CPLUSPLUSFLAGS = (
 					"-I$(PROJECT_DIR)",
-					"-I$(PROJECT_DIR)/*",
+					"-I$(PROJECT_DIR)/FSU\\ ADTIterators",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -293,7 +311,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		980551C71E7792B8001CF326 /* Build configuration list for PBXNativeTarget "MAP FOAA" */ = {
+		980551C71E7792B8001CF326 /* Build configuration list for PBXNativeTarget "Map FMap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				980551C81E7792B8001CF326 /* Debug */,
