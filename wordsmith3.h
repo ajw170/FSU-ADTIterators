@@ -39,10 +39,7 @@ public:
     WordSmith();            //default constructor
     ~WordSmith();           //destructor
     bool ReadText       (const fsu::String& infile, bool showProgress = 0); //read file contents
-    bool WriteReport    (const fsu::String& outfile, unsigned short kw = 15, unsigned short dw = 15,
-                         std::ios_base::fmtflags kf = std::ios_base::left, //key justify
-                         std::ios_base::fmtflags df = std::ios_base::right //data justify
-                         ) const;
+    bool WriteReport    (const fsu::String& outfile, unsigned short kw = 15, unsigned short dw = 15) const;
     void ShowSummary    () const;
     void ClearData      ();
     
@@ -54,7 +51,7 @@ private:
     typedef fsu::String                                 KeyType;
     typedef size_t                                      DataType;
     
-    typedef fsu::OAA <KeyType,DataType>                 SetType;
+    typedef fsu::Map_ADT <KeyType,DataType>             SetType;
     
     SetType                     frequency_; //specified set; holds frequency of keys
     ListType                    infiles_; //list of file names

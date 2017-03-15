@@ -1,15 +1,15 @@
 /*
  Andrew J Wood
  FSU ID: ajw14m
- February 20, 2017
+ March 15, 2017
  
- Implementation for WordSmith2 API
+ Implementation for WordSmith3 API
  
- This file implements the API described in wordsmith2.h
+ This file implements the API described in wordsmith3.h
  
  */
 
-#include <wordsmith2.h> // included to indicate that this is the implementation file
+#include <wordsmith3.h> // included to indicate that this is the implementation file
 #include <fstream> // Allows for read access to files
 #include <iomanip>
 
@@ -66,8 +66,7 @@ bool WordSmith::ReadText (const fsu::String& infile, bool showProgress)
     return 1; //operation was successful
 }
 
-bool WordSmith::WriteReport (const fsu::String& outfile, unsigned short kw, unsigned short dw,
-                             std::ios_base::fmtflags kf, std::ios_base::fmtflags df) const
+bool WordSmith::WriteReport (const fsu::String& outfile, unsigned short kw, unsigned short dw) const
 {
     const char * fileForWrite = outfile.Cstr();
     std::ofstream outClientFile(fileForWrite, std::ios::out); //opens file for output
@@ -108,7 +107,13 @@ bool WordSmith::WriteReport (const fsu::String& outfile, unsigned short kw, unsi
     outClientFile << "\n";
     
     //loop through all words
-    frequency_.Display(outClientFile, kw, dw, kf, df); //use OAA's display method to write to file
+    SetType::ConstIterator setIterator;
+    for (setIterator = frequency_.Begin(); setIterator != frequency_.End(); ++setIterator)
+    {
+        outClientFile << std::setw(kw) << std::left << (*setIterator).key_;
+        outClientFile << std::setw(dw) << std::right << (*setIterator).data_;
+        outClientFile << "\n";
+    }
     
     //create temp vars to avoid multiple calls
     size_t numWords = WordsRead();

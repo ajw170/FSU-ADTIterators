@@ -7,12 +7,32 @@
 		<key>Map FMap.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
+		<key>Map MMap.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
 			<integer>15</integer>
+		</dict>
+		<key>Map WordSmith.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>980551BF1E7792B8001CF326</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>987D762E1E79D84F00327D6C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>98AB47851E79CDF400871A18</key>
 		<dict>
 			<key>primary</key>
 			<true/>

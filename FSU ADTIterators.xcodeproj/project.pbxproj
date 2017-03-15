@@ -7,11 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		98AB47811E79BC3E00871A18 /* fmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98BEA09F1E788C1E00C9DD95 /* fmap.cpp */; };
+		987D76221E79CF9100327D6C /* mmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98BEA0A31E788C1E00C9DD95 /* mmap.cpp */; };
+		987D76231E79CF9900327D6C /* fmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98BEA09F1E788C1E00C9DD95 /* fmap.cpp */; };
+		987D76271E79D4DF00327D6C /* xranxstr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 987D76251E79D4DF00327D6C /* xranxstr.cpp */; };
+		987D76291E79D50A00327D6C /* xran.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 987D76281E79D50A00327D6C /* xran.cpp */; };
+		987D76361E79D87000327D6C /* main_ws3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98BEA0A01E788C1E00C9DD95 /* main_ws3.cpp */; };
+		987D76371E79D8F100327D6C /* xstring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98BEA09C1E786CCD00C9DD95 /* xstring.cpp */; };
+		987D76381E79D8F100327D6C /* wordsmith3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 980551CD1E779A8A001CF326 /* wordsmith3.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		980551BE1E7792B8001CF326 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		987D762D1E79D84F00327D6C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		98AB47841E79CDF400871A18 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -36,11 +60,20 @@
 		980551D71E779C90001CF326 /* deque.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deque.h; sourceTree = "<group>"; };
 		980551D81E779CA8001CF326 /* deque.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = deque.cpp; sourceTree = "<group>"; };
 		980551DA1E779CEB001CF326 /* pair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pair.h; sourceTree = "<group>"; };
+		987D76241E79D4DF00327D6C /* xran.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xran.h; sourceTree = "<group>"; };
+		987D76251E79D4DF00327D6C /* xranxstr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xranxstr.cpp; sourceTree = "<group>"; };
+		987D76261E79D4DF00327D6C /* xranxstr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xranxstr.h; sourceTree = "<group>"; };
+		987D76281E79D50A00327D6C /* xran.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xran.cpp; sourceTree = "<group>"; };
+		987D762A1E79D77800327D6C /* randata.out */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = randata.out; sourceTree = "<group>"; };
+		987D762F1E79D84F00327D6C /* Map WordSmith */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Map WordSmith"; sourceTree = BUILT_PRODUCTS_DIR; };
+		987D76391E79DEE700327D6C /* english.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = english.txt; sourceTree = "<group>"; };
+		987D763A1E79DF9100327D6C /* english.out */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = english.out; sourceTree = "<group>"; };
 		98AB47781E79BAB700871A18 /* genalg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = genalg.h; sourceTree = "<group>"; };
 		98AB47791E79BAD500871A18 /* vector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector.cpp; sourceTree = "<group>"; };
 		98AB477B1E79BAF800871A18 /* list.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = list.cpp; sourceTree = "<group>"; };
 		98AB477D1E79BB1300871A18 /* list_macro.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = list_macro.cpp; sourceTree = "<group>"; };
 		98AB477E1E79BB1300871A18 /* list_sort.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = list_sort.cpp; sourceTree = "<group>"; };
+		98AB47861E79CDF400871A18 /* Map MMap */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Map MMap"; sourceTree = BUILT_PRODUCTS_DIR; };
 		98BEA09C1E786CCD00C9DD95 /* xstring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xstring.cpp; sourceTree = "<group>"; };
 		98BEA09D1E786CCD00C9DD95 /* xstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xstring.h; sourceTree = "<group>"; };
 		98BEA09F1E788C1E00C9DD95 /* fmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fmap.cpp; sourceTree = "<group>"; };
@@ -63,6 +96,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		987D762C1E79D84F00327D6C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98AB47831E79CDF400871A18 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -79,6 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				980551C01E7792B8001CF326 /* Map FMap */,
+				98AB47861E79CDF400871A18 /* Map MMap */,
+				987D762F1E79D84F00327D6C /* Map WordSmith */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -86,6 +135,9 @@
 		980551C21E7792B8001CF326 /* FSU ADTIterators */ = {
 			isa = PBXGroup;
 			children = (
+				987D763A1E79DF9100327D6C /* english.out */,
+				987D76391E79DEE700327D6C /* english.txt */,
+				987D762A1E79D77800327D6C /* randata.out */,
 				980551CD1E779A8A001CF326 /* wordsmith3.cpp */,
 				980551CC1E779A8A001CF326 /* map_adt.h */,
 				980551CE1E779A8A001CF326 /* wordsmith3.h */,
@@ -102,6 +154,10 @@
 		980551D21E779B72001CF326 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				987D76281E79D50A00327D6C /* xran.cpp */,
+				987D76241E79D4DF00327D6C /* xran.h */,
+				987D76251E79D4DF00327D6C /* xranxstr.cpp */,
+				987D76261E79D4DF00327D6C /* xranxstr.h */,
 				98AB477D1E79BB1300871A18 /* list_macro.cpp */,
 				98AB477E1E79BB1300871A18 /* list_sort.cpp */,
 				98AB477B1E79BAF800871A18 /* list.cpp */,
@@ -146,6 +202,40 @@
 			productReference = 980551C01E7792B8001CF326 /* Map FMap */;
 			productType = "com.apple.product-type.tool";
 		};
+		987D762E1E79D84F00327D6C /* Map WordSmith */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 987D76331E79D84F00327D6C /* Build configuration list for PBXNativeTarget "Map WordSmith" */;
+			buildPhases = (
+				987D762B1E79D84F00327D6C /* Sources */,
+				987D762C1E79D84F00327D6C /* Frameworks */,
+				987D762D1E79D84F00327D6C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Map WordSmith";
+			productName = "Map WordSmith";
+			productReference = 987D762F1E79D84F00327D6C /* Map WordSmith */;
+			productType = "com.apple.product-type.tool";
+		};
+		98AB47851E79CDF400871A18 /* Map MMap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 98AB478A1E79CDF400871A18 /* Build configuration list for PBXNativeTarget "Map MMap" */;
+			buildPhases = (
+				98AB47821E79CDF400871A18 /* Sources */,
+				98AB47831E79CDF400871A18 /* Frameworks */,
+				98AB47841E79CDF400871A18 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Map MMap";
+			productName = "Map MMap";
+			productReference = 98AB47861E79CDF400871A18 /* Map MMap */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -156,6 +246,14 @@
 				ORGANIZATIONNAME = FSU;
 				TargetAttributes = {
 					980551BF1E7792B8001CF326 = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
+					987D762E1E79D84F00327D6C = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
+					98AB47851E79CDF400871A18 = {
 						CreatedOnToolsVersion = 8.1;
 						ProvisioningStyle = Automatic;
 					};
@@ -174,6 +272,8 @@
 			projectRoot = "";
 			targets = (
 				980551BF1E7792B8001CF326 /* Map FMap */,
+				98AB47851E79CDF400871A18 /* Map MMap */,
+				987D762E1E79D84F00327D6C /* Map WordSmith */,
 			);
 		};
 /* End PBXProject section */
@@ -183,7 +283,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98AB47811E79BC3E00871A18 /* fmap.cpp in Sources */,
+				987D76231E79CF9900327D6C /* fmap.cpp in Sources */,
+				987D76271E79D4DF00327D6C /* xranxstr.cpp in Sources */,
+				987D76291E79D50A00327D6C /* xran.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		987D762B1E79D84F00327D6C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				987D76371E79D8F100327D6C /* xstring.cpp in Sources */,
+				987D76381E79D8F100327D6C /* wordsmith3.cpp in Sources */,
+				987D76361E79D87000327D6C /* main_ws3.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98AB47821E79CDF400871A18 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				987D76221E79CF9100327D6C /* mmap.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +353,10 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CPLUSPLUSFLAGS = (
+					"-I$(PROJECT_DIR)",
+					"-I$(PROJECT_DIR)/FSU\\ ADTIterators",
+				);
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -273,6 +397,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CPLUSPLUSFLAGS = (
+					"-I$(PROJECT_DIR)",
+					"-I$(PROJECT_DIR)/FSU\\ ADTIterators",
+				);
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -299,6 +427,34 @@
 			};
 			name = Release;
 		};
+		987D76341E79D84F00327D6C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		987D76351E79D84F00327D6C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		98AB478B1E79CDF400871A18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		98AB478C1E79CDF400871A18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -316,6 +472,23 @@
 			buildConfigurations = (
 				980551C81E7792B8001CF326 /* Debug */,
 				980551C91E7792B8001CF326 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		987D76331E79D84F00327D6C /* Build configuration list for PBXNativeTarget "Map WordSmith" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				987D76341E79D84F00327D6C /* Debug */,
+				987D76351E79D84F00327D6C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		98AB478A1E79CDF400871A18 /* Build configuration list for PBXNativeTarget "Map MMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98AB478B1E79CDF400871A18 /* Debug */,
+				98AB478C1E79CDF400871A18 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

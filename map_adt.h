@@ -91,7 +91,7 @@ namespace fsu
         D&   Get (const KeyType& k);
         
         //Additional Table API features
-        bool Retrieve (const KeyType &k, DataType &d);
+        bool Retrieve (const KeyType &k, DataType &d) const;
         
         //Includes methods
         Iterator Includes (const KeyType& k);
@@ -350,7 +350,7 @@ namespace fsu
     
     //New implementations for Retrieve and Includes
     template < typename K, typename D, class P >
-    bool Map_ADT<K,D,P>::Retrieve (const KeyType &k, DataType &d)
+    bool Map_ADT<K,D,P>::Retrieve (const KeyType &k, DataType &d) const
     {
         Iterator i = this->Includes(k); //return iterator to entry containing key k
         if (i == this->End()) //if not found
